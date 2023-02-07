@@ -67,10 +67,10 @@ GET https://host:port/api/books/description/deploy returns all with description 
 sorted by description (B1, B13)
 GET https://host:port/api/books/description/applications returns all with description containing
 'applications' sorted by description (B1)
-POST https://host:port/api/books/{id} edits an existing book
 ```
 
 ```
+POST https://host:port/api/books/{id} edits an existing book
 Payload
 {
 "author": "TestLastname, TestFirstName",
