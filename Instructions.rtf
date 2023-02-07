@@ -1,0 +1,108 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1053{\fonttbl{\f0\fnil\fcharset0 Calibri;}{\f1\fnil Calibri;}}
+{\colortbl ;\red0\green0\blue255;}
+{\*\generator Riched20 10.0.19041}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\f0\fs22\lang29 General requirements Books API:\par
+-----------------------\par
+\f1\bullet  The API can be written in either Java or C# \par
+\bullet  The API should always return a collection of books in json format. \par
+\bullet  By default, it should return all books without any specific sorting. \par
+\bullet  If a specific field is searched it should return the result sorted on that field. \par
+\bullet  It should be possible to search on any field.\par
+\bullet  When creating a new book, use the same ID standard as the rest of the books \par
+C# requirements:\par
+\bullet  The API should be written in .NET > 5.0 \par
+\bullet  Feel free to use the API template in Visual Studio 2022\par
+Java requirements: \par
+\bullet  The API should be written in Java > 8.\par
+\bullet  Utilizing Spring-boot (JavaSE) or Jakarta (Java EE).\par
+\bullet  Utilize Maven for building the source-code\par
+Use cases: \par
+-----------------------\par
+Whatever field I ask for, it should return the result sorted by that field. \par
+I should be able to ask for an author, a title, a genre, or a description. It should perform the search \par
+"case insensitive" and with partial strings. So, if I ask for "/api/books/author/kim" it should return \par
+only the book by "Ralls, Kim". \par
+I should be able to ask for a price range or a specific price. \par
+I should be able to ask for published_date or part of it, that means all books, books from a certain \par
+year, books from a certain year-month or books from a certain year-month-day. \par
+I should be able to edit any field for any book using the book ID as a search parameter. \par
+I should be able to create a new book. \par
+Use case examples:\par
+-----------------------\par
+GET {{\field{\*\fldinst{HYPERLINK https://host:port/api/books }}{\fldrslt{https://host:port/api/books\ul0\cf0}}}}\f1\fs22  returns all unsorted (B1-B13)\par
+GET {{\field{\*\fldinst{HYPERLINK https://host:port/api/books/id }}{\fldrslt{https://host:port/api/books/id\ul0\cf0}}}}\f1\fs22  returns all sorted by id (B1-B13)\par
+GET {{\field{\*\fldinst{HYPERLINK https://host:port/api/books/id/b }}{\fldrslt{https://host:port/api/books/id/b\ul0\cf0}}}}\f1\fs22  returns all with id containing 'b' sorted by id (B1-B13)\par
+GET {{\field{\*\fldinst{HYPERLINK https://host:port/api/books/id/b1 }}{\fldrslt{https://host:port/api/books/id/b1\ul0\cf0}}}}\f1\fs22  returns all with id containing 'b1' sorted by id (B1, B10-13)\par
+GET {{\field{\*\fldinst{HYPERLINK https://host:port/api/books/author }}{\fldrslt{https://host:port/api/books/author\ul0\cf0}}}}\f1\fs22  returns all sorted by author (B1-B13)\par
+GET {{\field{\*\fldinst{HYPERLINK https://host:port/api/books/author/joe }}{\fldrslt{https://host:port/api/books/author/joe\ul0\cf0}}}}\f1\fs22  returns all with author containing 'joe' sorted by author \par
+(B1)\par
+GET {{\field{\*\fldinst{HYPERLINK https://host:port/api/books/author/kut }}{\fldrslt{https://host:port/api/books/author/kut\ul0\cf0}}}}\f1\fs22  returns all with author containing 'kut' sorted by author \par
+(B1)\par
+GET {{\field{\*\fldinst{HYPERLINK https://host:port/api/books/title }}{\fldrslt{https://host:port/api/books/title\ul0\cf0}}}}\f1\fs22  returns all sorted by title (B1-B13)\par
+GET {{\field{\*\fldinst{HYPERLINK https://host:port/api/books/title/deploy }}{\fldrslt{https://host:port/api/books/title/deploy\ul0\cf0}}}}\f1\fs22  returns all with title containing 'deploy' sorted by title \par
+(B1)\par
+GET {{\field{\*\fldinst{HYPERLINK https://host:port/api/books/title/jruby }}{\fldrslt{https://host:port/api/books/title/jruby\ul0\cf0}}}}\f1\fs22  returns all with title containing 'jruby' sorted by title (B1)\par
+GET {{\field{\*\fldinst{HYPERLINK https://host:port/api/books/genre }}{\fldrslt{https://host:port/api/books/genre\ul0\cf0}}}}\f1\fs22  returns all sorted by genre (B1-B13)\par
+GET {{\field{\*\fldinst{HYPERLINK https://host:port/api/books/genre/com }}{\fldrslt{https://host:port/api/books/genre/com\ul0\cf0}}}}\f1\fs22  returns all with genre containing 'com' sorted by genre \par
+(B1, B10-13)\par
+GET {{\field{\*\fldinst{HYPERLINK https://host:port/api/books/genre/ter }}{\fldrslt{https://host:port/api/books/genre/ter\ul0\cf0}}}}\f1\fs22  returns all with genre containing 'ter' sorted by genre \par
+(B1, B10-13)\par
+GET {{\field{\*\fldinst{HYPERLINK https://host:port/api/books/price }}{\fldrslt{https://host:port/api/books/price\ul0\cf0}}}}\f1\fs22  returns all sorted by price (B1-B13)\par
+GET {{\field{\*\fldinst{HYPERLINK https://host:port/api/books/price/33.0 }}{\fldrslt{https://host:port/api/books/price/33.0\ul0\cf0}}}}\f1\fs22  returns all with price '33.0' (B1)\par
+GET {{\field{\*\fldinst{HYPERLINK https://host:port/api/books/price/30.0&35.0 }}{\fldrslt{https://host:port/api/books/price/30.0&35.0\ul0\cf0}}}}\f1\fs22  returns all with price between '30.0' and '35.0' \par
+sorted by price (B1, B11)\par
+GET {{\field{\*\fldinst{HYPERLINK https://host:port/api/books/published }}{\fldrslt{https://host:port/api/books/published\ul0\cf0}}}}\f1\fs22  returns all sorted by published_date (B1-B13)\par
+GET {{\field{\*\fldinst{HYPERLINK https://host:port/api/books/published/2012 }}{\fldrslt{https://host:port/api/books/published/2012\ul0\cf0}}}}\f1\fs22  returns all from '2012' sorted by published_date \par
+(B13, B1)\par
+GET {{\field{\*\fldinst{HYPERLINK https://host:port/api/books/published/2012/8 }}{\fldrslt{https://host:port/api/books/published/2012/8\ul0\cf0}}}}\f1\fs22  returns all from '2012-08' sorted by \par
+published_date (B1)\par
+GET {{\field{\*\fldinst{HYPERLINK https://host:port/api/books/published/2012/8/15 }}{\fldrslt{https://host:port/api/books/published/2012/8/15\ul0\cf0}}}}\f1\fs22  returns all from '2012-08-15' sorted by \par
+published_date (B1)\par
+GET {{\field{\*\fldinst{HYPERLINK https://host:port/api/books/description }}{\fldrslt{https://host:port/api/books/description\ul0\cf0}}}}\f1\fs22  returns all sorted by description (B1-B13)\par
+GET {{\field{\*\fldinst{HYPERLINK https://host:port/api/books/description/deploy }}{\fldrslt{https://host:port/api/books/description/deploy\ul0\cf0}}}}\f1\fs22  returns all with description containing 'deploy' \par
+sorted by description (B1, B13)\par
+GET {{\field{\*\fldinst{HYPERLINK https://host:port/api/books/description/applications }}{\fldrslt{https://host:port/api/books/description/applications\ul0\cf0}}}}\f1\fs22  returns all with description containing \par
+'applications' sorted by description (B1)\par
+POST {{\field{\*\fldinst{HYPERLINK https://host:port/api/books/\{id\} }}{\fldrslt{https://host:port/api/books/\{id\}\ul0\cf0}}}}\f1\fs22  edits an existing book\par
+Payload\par
+\{\par
+"author": "TestLastname, TestFirstName",\par
+"title": "Test Book",\par
+"genre": "Test genre",\par
+"price": "38.95",\par
+"publish_date": "2008-06-01",\par
+"description": "Test description"\par
+\}\par
+PUT {{\field{\*\fldinst{HYPERLINK https://host:port/api/books }}{\fldrslt{https://host:port/api/books\ul0\cf0}}}}\f1\fs22  Creates a new entry. ID is generated in backend \par
+Payload\par
+\{\par
+"author": "TestLastname, TestFirstName",\par
+"title": "Test Book",\par
+"genre": "Test genre",\par
+"price": "38.95",\par
+"publish_date": "2008-06-01",\par
+"description": "Test description"\par
+\}\par
+Hints: \par
+-----------------------\par
+Divide the solution into what you think is architectural suitable parts. \par
+Refactor the code to make it as easy as possible to read and maintain. \par
+Use coding techniques like well-known patterns and practices and naming conventions. \par
+Make use of abstractions, dependency injections, extensions, expressions, attributes etc.\par
+Make use of different routes in the controller. \par
+If you are familiar with testing, we would really like to see some unit tests :) \par
+Don't worry if you think it seems like a tough test! Just do your best. If the requirements and use \par
+cases are covered, you are safe. The rest is only to judge the maturity of your skills.\par
+Deliverables: \par
+-------------\par
+First! Make sure everything works before handover! \par
+The code should be documented, add comments where you feel the need, try to explain how you \par
+were thinking.\par
+Add a brief description of how you were thinking when you created the solution or any additional \par
+information how to make it compile/execute if needed. \par
+Once you have finished your solution make sure the code can run, you don't have to deliver the \par
+binaries, we are only interested in all the source code. \par
+Make sure everything needed is included in the solution folder and upload it to github and send over \par
+the URL. Alternatively, zip and ship it.\f0\par
+}
+ 
