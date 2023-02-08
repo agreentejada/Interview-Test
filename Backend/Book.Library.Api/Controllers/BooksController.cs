@@ -405,7 +405,7 @@ namespace Book.Library.Api.Controllers
 
             if (model.Price != null)
             {
-                book.Price = double.Parse(model.Price);
+                book.Price = model.Price;
             }
 
             if (model.Publish_Date != null) 
