@@ -15,15 +15,16 @@ namespace Book.Library.Api.Utils
             _context = context;
         }
 
-        public async Task SeedDatabase()
+        // No need to make a method async if you're going to wait on it in another function call.
+        public void SeedDatabase()
         {
             var filePath = Path.Combine(_env.ContentRootPath, "Data/books.json");
-            var json = await File.ReadAllTextAsync(filePath);
+            var json = File.ReadAllText(filePath);
 
             var seedData = JsonConvert.DeserializeObject<List<BookEntity>>(json);
 
             _context.Books.AddRange(seedData);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
     }

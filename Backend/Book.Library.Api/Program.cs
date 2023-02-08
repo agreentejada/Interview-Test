@@ -8,29 +8,25 @@ startup.ConfigureServices(builder.Services);
 
 var app = builder.Build();
 
-startup.Configure(app, builder.Environment);
-
-app.UseCors(builder =>
-{
-    builder
-    .AllowAnyOrigin()
-    .AllowAnyMethod()
-    .AllowAnyHeader();
-});
+app.InitializeDatabase();
 
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-//app.UseHttpsRedirection();
-
-//app.UseAuthorization();
+else
+{
+    // Restricts the usage of HTTPS to production environment so devs don't have to install a test certificate.
+    app.UseHttpsRedirection();
+}
 
 app.MapControllers();
-
 app.UseRouting();
+// While not currently used, setting the app to use Authentication/Authorization is useful for real world problems.
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.UseDefaultFiles();
 app.UseStaticFiles();
 
