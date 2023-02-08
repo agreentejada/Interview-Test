@@ -110,7 +110,7 @@ namespace Book.Library.Api.Controllers
         public async Task<IResult> GetBooksSortByPrice()
         {
             var result = await _genericService.GetBookList();
-            result = result.OrderBy(x => double.Parse(x.Price, CultureInfo.InvariantCulture));
+            result = result.OrderBy(x => x.Price);
 
             IEnumerable<BookVM> book = _mapper.Map<IEnumerable<BookVM>>(result);
 
@@ -231,8 +231,9 @@ namespace Book.Library.Api.Controllers
         public async Task<IResult> GetBooksSearchPrice(string search)
         {
             var result = await _genericService.GetBookList();
-            result = result.Where(x => x.Price.Contains(search)).OrderBy(x => 
-            double.Parse(x.Price, CultureInfo.InvariantCulture));
+            result = result
+                .Where(x => x.Price?.ToString().Contains(search) ?? false)
+                .OrderBy(x => x.Price);
 
             IEnumerable<BookVM> book = _mapper.Map<IEnumerable<BookVM>>(result);
 
@@ -249,9 +250,9 @@ namespace Book.Library.Api.Controllers
         public async Task<IResult> GetBooksSearchPrice(double minValue, double maxValue)
         {
             var result = await _genericService.GetBookList();
-            result = result.Where(x => double.Parse(x.Price, CultureInfo.InvariantCulture) >= 
-            minValue && double.Parse(x.Price, CultureInfo.InvariantCulture) 
-            <= maxValue).OrderBy(x => double.Parse(x.Price, CultureInfo.InvariantCulture));
+            result = result
+                .Where(x => x.Price >= minValue && x.Price <= maxValue)
+                .OrderBy(x => x.Price);
 
             IEnumerable<BookVM> book = _mapper.Map<IEnumerable<BookVM>>(result);
 
@@ -404,7 +405,7 @@ namespace Book.Library.Api.Controllers
 
             if (model.Price != null)
             {
-                book.Price = model.Price;
+                book.Price = double.Parse(model.Price);
             }
 
             if (model.Publish_Date != null) 

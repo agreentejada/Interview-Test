@@ -2,6 +2,7 @@
 using Book.Library.Api.Utils;
 using Book.Library.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Book.Library.Api
 {
@@ -51,6 +52,7 @@ namespace Book.Library.Api
                 var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
                 var jsonFileHelper = serviceScope.ServiceProvider.GetRequiredService<JsonFileHelper>();
 
+                dbContext.Database.EnsureDeleted();
                 if (dbContext.Database.EnsureCreated())
                 {
                     jsonFileHelper.SeedDatabase();
